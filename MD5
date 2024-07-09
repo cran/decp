@@ -1,0 +1,15 @@
+4b6e3dc0ae3688b70c818e9a754bbc01 *DESCRIPTION
+80767e1e39dfa5e83921bc174c2b1a9f *NAMESPACE
+ac284fa8d027b3699496065431f38a58 *R/adjusted_ratio_bin_seg.R
+ca1412a4f13dcd350ccb7f8bd986accc *R/calculate_metrics.R
+d435a447059825e1168f3572be6f2b88 *R/decp.R
+799eda3fbb3553a33c444d631ec334c4 *R/estimate_covariance_distance.R
+e6ca5ee3d3541f0003ffc8d2f26bb42a *R/mle_change_point.R
+cf597b87fb09ec286b7781ae7a97d88f *R/plotting.R
+ee122bd1b52b2ac95ed4cbe4cec1407d *R/simulate_estimation.R
+a66289af07ba596c5dc03db461bca69b *man/adjusted_ratio_bin_seg.Rd
+ea1be0af5791e1900900b61d6a04b36d *man/decp.Rd
+9867a61f7a7ce9cb4b14302d9420098b *man/mle_change_point_detection.Rd
+45ca86626fc4bfaec80bb62f199bd4c5 *man/plot_change_points.Rd
+f8dc030223e23c6b10cf9b5d083858c2 *man/plot_mle_change_point.Rd
+3ed0c2808ce39ea6ad7790ea54d20bee *man/simulate_estimation.Rd
