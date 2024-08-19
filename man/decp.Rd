@@ -30,7 +30,7 @@ For jump size >= 1, the default value is 100.}
 }
 \value{
 An object of class 'decp_result' containing the ordered change points, the summary of the jump sizes for each pair of segments,
-the Confidence Interval (C.I.) of each detected change point, and warnings in case that the C.I. of two adjacent change points overlap.
+the Confidence Interval (C.I.) of each detected change point, the maximum zhta, confidence interval level, and warnings in case that the C.I. of two adjacent change points overlap.
 }
 \description{
 Detect and estimate change points.

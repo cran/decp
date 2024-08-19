@@ -70,8 +70,7 @@ mle_change_point_detection <- function(input_data, verbose = TRUE) {
 #'
 #' @param x An object of class 'mle_change_point_result'.
 #' @param ... Additional arguments (not used).
-#' @keywords internal
-#' @noRd
+#' @export
 print.mle_change_point_result <- function(x, ...) {
   cat("MLE Change Point Detection Result:\n")
   cat("Best tau (change point):", x$best_tau, "\n")

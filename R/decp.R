@@ -12,7 +12,7 @@
 #' A higher number of simulations helps in capturing the variability and improves the accuracy of the estimation.
 #' @param verbose Logical value indicating whether to print messages during the function execution. Default is TRUE.
 #' @return An object of class 'decp_result' containing the ordered change points, the summary of the jump sizes for each pair of segments,
-#' the Confidence Interval (C.I.) of each detected change point, and warnings in case that the C.I. of two adjacent change points overlap.
+#' the Confidence Interval (C.I.) of each detected change point, the maximum zhta, confidence interval level, and warnings in case that the C.I. of two adjacent change points overlap.
 #' @export
 #' @importFrom purrr map_dbl map map_if map_lgl pmap_dbl
 #' @importFrom stats cov qnorm na.omit quantile rnorm
@@ -191,6 +191,8 @@ decp <- function(input_data, alpha = 0.05, num_simulations = 10000, num_iteratio
   result_list <- list(
     estimation_results = estimation_results, 
     ordered_change_points = ordered_change_points,
+    summary_max_zhta = summary_max_zhta,
+    alpha = alpha,
     messages = messages
   )
   
@@ -201,8 +203,54 @@ decp <- function(input_data, alpha = 0.05, num_simulations = 10000, num_iteratio
 #' Print method for decp_result
 #' @param x An object of class 'decp_result'
 #' @param ... Additional arguments (not used)
-#' @keywords internal
-#' @noRd
+#' @export
 print.decp_result <- function(x, ...) {
-  cat(paste(x$messages, collapse = "\n"), "\n")
+  cat("Detected Change Points:\n")
+  cat("Number of change points:", length(x$ordered_change_points), "\n")
+  cat("Change points:", paste(x$ordered_change_points, collapse = ", "), "\n")
+}
+
+#' Summary method for decp_result
+#' @param object An object of class 'decp_result'
+#' @param ... Additional arguments (not used)
+#' @export
+summary.decp_result <- function(object, ...) {
+  cat("Summary of Change Point Detection:\n")
+  cat("Number of change points detected:", length(object$ordered_change_points), "\n\n")
+  
+  cat("Change Points:\n")
+  cat(paste(object$ordered_change_points, collapse = ", "), "\n\n")
+  
+  cat("Jump Sizes (max zhta for each segment pair):\n")
+  for (k in 1:length(object$summary_max_zhta)) {
+    cat(sprintf("Pair (%d, %d) - max zhta = %.4f\n", k, k + 1, object$summary_max_zhta[k]))
+  }
+  
+  cat("\nConfidence Intervals:\n")
+  
+  alpha <- object$alpha  # Retrieve alpha from the result object
+  lower_percentile <- alpha / 2 * 100
+  upper_percentile <- (1 - alpha / 2) * 100
+  confidence_level <- (1 - alpha) * 100
+  
+  for (i in seq_along(object$estimation_results)) {
+    vec_name <- paste("estimation_vecRW_", sprintf("%02d", i), sep = "")
+    current_vector <- object$estimation_results[[vec_name]]
+    cleaned_vector <- na.omit(current_vector)
+    sorted_vector <- sort(cleaned_vector)
+    ci <- quantile(sorted_vector, probs = c(lower_percentile / 100, upper_percentile / 100))
+    
+    shifted_lower_ci <- ci[1] + object$ordered_change_points[i]
+    shifted_upper_ci <- ci[2] + object$ordered_change_points[i]
+    
+    cat(sprintf("For %s the %.0f%% C.I., of the change point %.0f, is [%.0f, %.0f]\n",
+                vec_name, confidence_level, object$ordered_change_points[i], shifted_lower_ci, shifted_upper_ci))
+  }
+  
+  if (length(object$warnings) > 0) {
+    cat("\nWarnings:\n")
+    cat(paste(object$warnings, collapse = "\n"), "\n")
+  } else {
+    cat("\nNo warnings.\n")
+  }
 }
