@@ -193,7 +193,7 @@ decp <- function(input_data, alpha = 0.05, num_simulations = 10000, num_iteratio
     ordered_change_points = ordered_change_points,
     summary_max_zhta = summary_max_zhta,
     alpha = alpha,
-    messages = messages
+    warnings = warnings
   )
   
   class(result_list) <- "decp_result"

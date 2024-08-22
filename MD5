@@ -1,8 +1,8 @@
-f2c6ea26f869c6ce7aefa5ebd69a031e *DESCRIPTION
+5001fc7d9700265654251aade5b4d637 *DESCRIPTION
 2df4028e45e28c8b3171ec9531897e86 *NAMESPACE
 ac284fa8d027b3699496065431f38a58 *R/adjusted_ratio_bin_seg.R
 ca1412a4f13dcd350ccb7f8bd986accc *R/calculate_metrics.R
-bf8c64b6a114ae24c5589393febeead3 *R/decp.R
+7f2d7bb46720c175d530c1a530f7b984 *R/decp.R
 799eda3fbb3553a33c444d631ec334c4 *R/estimate_covariance_distance.R
 6bcddc09498922283ed39c5bcbecd1b2 *R/mle_change_point.R
 c322f1c9faf35a52559f1ccd1a8f23de *R/plotting.R
